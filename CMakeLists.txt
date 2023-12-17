@@ -14,4 +14,4 @@ if(MSVC)
     endif()
 endif()
 
-add_executable(main "src/main.cc"  "include/Stats.h" "include/Random.h" "include/Analytics.h" "include/Fruits.h")
+add_executable(main "src/main.cc"  "include/Stats.h" "include/Random.h" "include/Analytics.h" "include/Clothes.h")

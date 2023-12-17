@@ -58,45 +58,59 @@ Stats cocktail_sort(std::vector<T>& arr) {
 
 
 // пирамидальная сортировка
+
+// Процедура для преобразования в двоичную кучу поддерева с корневым узлом index
 template<typename T>
 void heapify(std::vector<T>& arr, int size, int index, Stats& stats) {
     int largest = index;
+
+    // Инициализируем наибольший элемент как корень
     int left = 2 * index + 1;
     int right = 2 * index + 2;
 
+    // Если левый дочерний элемент больше корня
     stats.comparison_count += 1;
     if (left < size && arr[left] > arr[largest]) {
         largest = left;
         stats.copy_count += 1;
     }
 
+    // Если правый дочерний элемент больше, чем самый большой элемент на данный момент
     stats.comparison_count += 1;
     if (right < size && arr[right] > arr[largest]) {
         largest = right;
         stats.copy_count += 1;
     }
 
+    // Если самый большой элемент не корень
     stats.comparison_count += 1;
     if (largest != index) {
         std::swap(arr[index], arr[largest]);
         stats.copy_count += 1;
 
+        // Рекурсивно преобразуем в двоичную кучу затронутое поддерево
         heapify(arr, size, largest, stats);
     }
 }
 
+// Основная функция, выполняющая пирамидальную сортировку
 template<typename T>
 void heap_sort(std::vector<T>& arr, Stats& stats) {
     int size = arr.size();
 
+    // Построение кучи (перегруппируем массив)
     for (int i = size / 2 - 1; i >= 0; i--) {
         heapify(arr, size, i, stats);
     }
 
+    // Один за другим извлекаем элементы из кучи
     for (int i = size - 1; i > 0; i--) {
+
+        // Перемещаем текущий корень в конец
         std::swap(arr[0], arr[i]);
         stats.copy_count += 2;
 
+        // вызываем процедуру heapify на уменьшенной куче
         heapify(arr, i, 0, stats);
     }
 }

@@ -12,8 +12,8 @@ Stats insertion_sort(std::vector<T>& arr) {
     Stats stats;
     if (arr.size() < 2)
         return stats;
-    for (size_t i = 1; i < arr.size(); ++i) {
-        size_t j = i;
+    for (int i = 1; i < arr.size(); ++i) {
+        int j = i;
         stats.comparison_count++;
         while (j != 0 && arr[j] < arr[j - 1]) {
             std::swap(arr[j - 1], arr[j]);
@@ -30,10 +30,10 @@ template<typename T>
 Stats cocktail_sort(std::vector<T>& arr) {
     Stats stats;
     if (arr.size() < 2) return stats;
-    size_t left = 0, right = arr.size() - 1;
-    size_t last_swap = 0;
+    int left = 0, right = arr.size() - 1;
+    int last_swap = 0;
     while (left < right) {
-        for (size_t i = left; i < right; ++i) {
+        for (int i = left; i < right; ++i) {
             stats.comparison_count++;
             if (arr[i + 1] < arr[i]) {
                 std::swap(arr[i + 1], arr[i]);
@@ -42,7 +42,7 @@ Stats cocktail_sort(std::vector<T>& arr) {
             }
         }
         right = last_swap;
-        for (size_t j = right; j > left; --j) {
+        for (int j = right; j > left; --j) {
             stats.comparison_count++;
             if (arr[j] < arr[j - 1]) {
                 std::swap(arr[j], arr[j - 1]);
